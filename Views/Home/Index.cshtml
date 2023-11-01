@@ -2,7 +2,454 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+
+    .contactcontainer {
+        padding: 60px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 56px;
+}
+
+
+
+    @*containers*@
+    .bottom-left {
+        position: absolute;
+        bottom: -200px;
+        left: 3px;
+    }
+
+    .totalcontainer {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+#roundcart{
+        border-radius: 25px;
+        border: 2px solid black;
+        padding: 20px;
+        width: 400px;
+        height: 500px;
+    }
+.cardcontainer {
+        padding: 60px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 56px;
+}
+
+.incardcontainer {
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+}
+
+@*card carousel*@
+ keyframes tonext {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: 100%;
+  }
+  98% {
+    left: 100%;
+  }
+  99% {
+    left: 0;
+  }
+}
+
+keyframes tostart {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: -300%;
+  }
+  98% {
+    left: -300%;
+  }
+  99% {
+    left: 0;
+  }
+}
+
+keyframes snap {
+  96% {
+    scroll-snap-align: center;
+  }
+  97% {
+    scroll-snap-align: none;
+  }
+  99% {
+    scroll-snap-align: none;
+  }
+  100% {
+    scroll-snap-align: center;
+  }
+}
+
+body {
+  /*max-width: 37.5rem;*/
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  font-family: 'Lato', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-color: transparent transparent; /* thumb and track color */
+  scrollbar-width: 0px;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}
+
+ol, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel {
+  position: relative;
+  padding-top: 50%;
+  filter: drop-shadow(0 0 10px #0003);
+  perspective: 100px;
+}
+
+.carousel__viewport {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  overflow-x: scroll;
+  counter-reset: item;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  background-color: white;
+  border-color: gray;
+  counter-increment: item;
+}
+
+.carousel__slide:nth-child(even) {
+  background-color: white;
+  border-color: gray;
+}
+
+.carousel__slide:before {
+  content: counter(item);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-40%,70px);
+  color: #fff;
+  font-size: 2em;
+}
+
+.carousel__snapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: center;
+}
+
+media (hover: hover) {
+  .carousel__snapper {
+    animation-name: tonext, snap;
+    animation-timing-function: ease;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+  }
+
+  .carousel__slide:last-child .carousel__snapper {
+    animation-name: tostart, snap;
+  }
+}
+
+media (prefers-reduced-motion: reduce) {
+  .carousel__snapper {
+    animation-name: none;
+  }
+}
+
+.carousel:hover .carousel__snapper,
+.carousel:focus-within .carousel__snapper {
+  animation-name: none;
+}
+
+.carousel__navigation {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+.carousel__navigation-list,
+.carousel__navigation-item {
+  display: inline-block;
+}
+
+.carousel__navigation-button {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #333;
+  background-clip: content-box;
+  border: 0.25rem solid transparent;
+  border-radius: 50%;
+  font-size: 0;
+  transition: transform 0.1s;
+}
+
+.carousel::before,
+.carousel::after,
+.carousel__prev,
+.carousel__next {
+  position: absolute;
+  top: 0;
+  margin-top: 37.5%;
+  width: 4rem;
+  height: 4rem;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  font-size: 0;
+  outline: 0;
+}
+
+.carousel::before,
+.carousel__prev {
+    top: -25%;
+  left: -1rem;
+}
+
+.carousel::after,
+.carousel__next {
+    top: -25%;
+  right: -1rem;
+}
+
+.carousel::before,
+.carousel::after {
+  content: '';
+  z-index: 1;
+  background-color: #333;
+  background-size: 1.5rem 1.5rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 4rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.carousel::before {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+.carousel::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
+}
+</style>
+
+<body style="background-color:white; color:black">
+    <div class="totalcontainer">
+    <div class="mySlides w3-display-container w3-center" style=" margin:0 ">
+        <img src="https://cdn.discordapp.com/attachments/1151428021341925473/1167526884112875530/image.png?ex=654e7324&is=653bfe24&hm=e027897e33a628306d28e2780cdbe4ed89b8b520626c787f71ba016e5a8cfb3b&" width="1300" height="600">
+        <div class="overlay-text">
+        </div>
+    </div>
+    <div class="mySlides w3-display-container w3-center">
+        <img src="https://cdn.discordapp.com/attachments/1151428021341925473/1167528509879623731/image.png?ex=654e74a8&is=653bffa8&hm=e62d4f55e6eac00c03de421c26191c65c733d97bcbb1a31e2546888a0eb74110&" width="1300" height="600">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        </div>
+    </div>
+    <div class="mySlides w3-display-container w3-center">
+        <img src="https://cdn.discordapp.com/attachments/1151428021341925473/1167529068619640943/image.png?ex=654e752d&is=653c002d&hm=8965de5442cc914af18b799470aafc1a6edc207cdef8749810098678e02c0f8e&" width="1300" height="600">
+        <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+        </div>
+    </div>
+    <script>
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 6000);
+        }
+    </script>
+
+    <div class="cardcontainer bottom-left">
+            <div id="roundcart" class="card text-black bg-white mb-3" style="max-width: 22rem; height: 18rem;">
+                <div class="card-header"><h3>Product voor u</h3></div>
+        <div class="card-body">
+            <div class="incardcontainer">
+                        <div class="card text-black bg-white" style="max-width: 7rem; border-color: #fff;">
+                            <h10 class="card-title">
+                                <p>
+                                    Albert Heijn Vegetarische Burger
+                                </p>
+                                <button type="button" class="btn btn-success" style="float:left"><h1 style="font-size: 13px;">Naar product</h1></button>
+                            </h10>
+                        </div>
+                <img src="https://cdn.discordapp.com/attachments/1151428021341925473/1167533304187207751/image.png?ex=654e791f&is=653c041f&hm=da534c9b4ba679713de2a1d72c64c69bcaaa9a4def01a56023eadf95f57070ad&" width="100"/> 
+            </div>
+        </div>
+    </div>
+
+            <div id="roundcart" class="card text-black bg-white mb-3" style="max-width: 22rem; height: 18rem;">
+                <div class="card-header"><h3>Nieuw product</h3></div>
+            <div class="card-body">
+                <div class="incardcontainer">
+                        <div class="card text-black bg-white" style="max-width: 7rem; border-color: #fff;">
+                            <h10 class="card-title">
+                                <p>
+                                    Framework Laptop
+                                    13.5 inch notebook
+                                </p>
+                                <button type="button" class="btn btn-success" style="float:left"><h1 style="font-size: 13px;">Naar product</h1></button>
+                            </h10>
+                        </div>
+                        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1168269439398072330/image.png?ex=655126b3&is=653eb1b3&hm=9c9ff256b341628ac240c54095ffeff324d087e6b736481078327d600afb32ac&" width="112" />
+                </div>
+            </div>
+        </div>
+
+        <div id="roundcart" class="card text-black bg-white mb-3" style="max-width: 22rem; height: 18rem;">
+                <div class="card-header"><h3>Tip van de week</h3></div>
+            <div class="card-body">
+                <div class="incardcontainer">
+                        <div class="card text-black bg-white" style="max-width: 7rem; border-color: #fff;">
+                    <h10 class="card-title">
+                        <p>
+                                    Zonne-energie
+                                    Oplader
+                                    <br />
+                                    <br />
+                                </p>
+                                <button type="button" class="btn btn-success" style="float:left"><h1 style="font-size: 13px;">Naar product</h1></button>
+                    </h10>
+                        </div>
+                        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1168269639168573460/image.png?ex=655126e3&is=653eb1e3&hm=8227c4022c600f50119b364b51d475d5dbaafb313db1a6e3ff89c6b265fd41f0&" width="112" />
+                    </div>   
+                    
+            </div>
+        </div>
+    </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <p style="text-align:center; font-size:50px;">Overzicht</p>
+    <hr />
+    <section class="carousel" aria-label="Gallery">
+        <ol class="carousel__viewport">
+            <li id="carousel__slide1" tabindex="0" class="carousel__slide">
+                <div class="carousel__snapper">
+                    <div id="roundcart" class="card text-black bg-white mb-3" style="width: 81rem; height: 39.4rem;">
+                    </div>
+                    <a href="#carousel__slide4" class="carousel__prev">Go to last slide</a>
+                    <a href="#carousel__slide2" class="carousel__next">Go to next slide</a>
+                </div>
+            </li>
+            <li id="carousel__slide2" tabindex="0" class="carousel__slide">
+                <div class="carousel__snapper"></div>
+                <div id="roundcart" class="card text-black bg-white mb-3" style="width: 81rem; height: 39.4rem;">
+                    </div>
+                <a href="#carousel__slide1" class="carousel__prev">Go to previous slide</a>
+                <a href="#carousel__slide3" class="carousel__next">Go to next slide</a>
+            </li>
+            <li id="carousel__slide3" tabindex="0" class="carousel__slide">
+                <div class="carousel__snapper"></div>
+                <div id="roundcart" class="card text-black bg-white mb-3" style="width: 81rem; height: 39.4rem;">
+                    </div>
+                <a href="#carousel__slide2" class="carousel__prev">Go to previous slide</a>
+                <a href="#carousel__slide4" class="carousel__next">Go to next slide</a>
+            </li>
+            <li id="carousel__slide4" tabindex="0" class="carousel__slide">
+                <div class="carousel__snapper"></div>
+                <div id="roundcart" class="card text-black bg-white mb-3" style="width: 81rem; height: 39.4rem;">
+                    </div>
+                <a href="#carousel__slide3" class="carousel__prev">Go to previous slide</a>
+                <a href="#carousel__slide1" class="carousel__next">Go to first slide</a>
+            </li>
+        </ol>
+        <aside class="carousel__navigation">
+            <ol class="carousel__navigation-list">
+                <li class="carousel__navigation-item">
+                    <a href="#carousel__slide1" class="carousel__navigation-button">Go to slide 1</a>
+                </li>
+                <li class="carousel__navigation-item">
+                    <a href="#carousel__slide2" class="carousel__navigation-button">Go to slide 2</a>
+                </li>
+                <li class="carousel__navigation-item">
+                    <a href="#carousel__slide3" class="carousel__navigation-button">Go to slide 3</a>
+                </li>
+                <li class="carousel__navigation-item">
+                    <a href="#carousel__slide4" class="carousel__navigation-button">Go to slide 4</a>
+                </li>
+            </ol>
+        </aside>
+    </section>
+    <hr />
+    <div class="cardcontainer">
+        <div>
+        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1169252900325822525/image.png?ex=6554ba9f&is=6542459f&hm=a051323ca1e1680f60922608745c45fab7e2bd584d9da8dc58429882991c27ed&" height="350" width="450" />
+        </div>
+        <div>
+             <h2 style="margin-top:0px;"> Contactgegevens</h2>
+            <br /> 
+            <p>Adres: Straatnaam 123</p>
+            <p>Postcode: 1234 AB Plaatsnaam</p>
+            <p>Telefoon: 0123-456789</p>
+            <p>Email: info@HetSmikkelhoekje.nl</p>
+        </div>
+         
+    </div>
+    
+    <footer>Gemaakt door ©BioWise</footer>
+
+</body>

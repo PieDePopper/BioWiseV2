@@ -6,10 +6,10 @@
         public string? Name { get; set; }
         public int Emmission { get; set; }
         public string? Category { get; set; }
-        public string? Image { get; set; }
+        public string? Image_link { get; set; }
 
         // one to many (Suggestion)
-        public int? Suggestions_Id { get; set; }
+        public int? Suggestion_Id { get; set; }
         public virtual ICollection<Suggestion>? Suggestions { get; set; }
 
     }
