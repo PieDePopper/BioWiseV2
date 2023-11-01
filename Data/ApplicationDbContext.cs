@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using BioWiseV2.Models;
 
 namespace BioWiseV2.Data
 {
@@ -9,5 +10,6 @@ namespace BioWiseV2.Data
             : base(options)
         {
         }
+        public DbSet<BioWiseV2.Models.Product> Product { get; set; } = default!;
     }
 }
