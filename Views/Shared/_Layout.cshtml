@@ -9,42 +9,140 @@
     <link rel="stylesheet" href="~/BioWiseV2.styles.css" asp-append-version="true" />
 </head>
 <body>
+
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        @*        <nav class="navbar navbar-expand-lg bg-black" data-bs-theme="dark">
+        <div class="container-fluid">
+        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1156921080229937152/image.png?ex=6516ba38&is=651568b8&hm=96a128000deef3aac70702b87e07bd43dc4492255ffec323dca903892ac0d72c&" height="100" , width=" 180">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link text-light" asp-area="" asp-controller="Menu" asp-action="Index">Menu</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link text-light" asp-area="" asp-controller="Bestel" asp-action="Index">Bestellen</a>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link text-light dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Eigenaar Opties</a>
+        <div class="dropdown-menu bg-black">
+        <a class="nav-link text-primary" asp-area="" asp-controller="Items" asp-action="Index">Menu Aanpassen</a>
+        <a class="dropdown-item text-primary" href="swagger">API</a>
+        </div>
+        </li>
+        </ul>
+        <form class="d-flex">
+        <input class="form-control me-sm-2" id="zoekbalk" type="search" placeholder="Search....">
+        <button class="btn btn-secondary my-2 my-sm-0 bg-primary" type="button" onclick="zoek()">Search</button>
+
+
+        </form>
+        <partial name="_LoginPartial" />
+        </div>
+        </div>
+        </nav>*@
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BioWiseV2</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <img src="https://cdn.discordapp.com/attachments/1151428021341925473/1167442532607725668/image.png?ex=654e2495&is=653baf95&hm=dd2e82473a909a2c3085f9efca0eb794404b4d4edf471eba1d48a036f37bf606&" height="50" , width=" 130">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarColor04">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Duurzaamheidsopties">Duurzaamheidsopties </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Voortgang">Voortgang</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
                         </li>
                     </ul>
+                    <form class="d-flex" style="max-width:20rem;">
+                        <input class="form-control bg-secondary me-sm-2" type="search" placeholder="Zoek">
+                        <button class="btn btn-success my-2 my-sm-0" type="submit">Zoeken</button>
+                    </form>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - BioWiseV2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+        <script>
+            // Functie om de zoekopdracht te verwerken en door te sturen naar de juiste pagina
+            function zoek() {
+                // Haal de zoekopdracht op uit de zoekbalk
+                var zoekopdracht = document.getElementById("zoekbalk").value.toLowerCase();
+
+                // Voer hier je logica in om te bepalen welke pagina je wilt openen op basis van de zoekopdracht
+                // Bijvoorbeeld, als de zoekopdracht "privacy" is, stuur de gebruiker naar de privacy pagina
+                if (zoekopdracht === "home") {
+                    window.location.href = "Home"; // Vervang "Home" door de werkelijke URL van je homepagina
+                }
+                else if (zoekopdracht === "privacy") {
+                    window.location.href = "Home/Privacy"; // Vervang "Home/Privacy" door de werkelijke URL van je privacy pagina
+                }
+                else if (zoekopdracht === "menu") {
+                    window.location.href = "Menu"; // Vervang "Menu" door de werkelijke URL van je menu pagina
+                }
+                else if (zoekopdracht === "winkelwagen") {
+                    window.location.href = "Bestel"; // Vervang "Bestel" door de werkelijke URL van je bestelpagina
+                }
+                else if (zoekopdracht === "bestellen") {
+                    window.location.href = "Bestel"; // Vervang "Bestel" door de werkelijke URL van je bestelpagina
+                }
+                else if (zoekopdracht === "bestel") {
+                    window.location.href = "Bestel"; // Vervang "Bestel" door de werkelijke URL van je bestelpagina
+                }
+                else if (zoekopdracht === "menu aanpassen") {
+                    window.location.href = "Items"; // Vervang "Items" door de werkelijke URL van je pagina voor menuaanpassingen
+                }
+                else if (zoekopdracht === "items") {
+                    window.location.href = "Items"; // Vervang "Items" door de werkelijke URL van je pagina voor menu-items
+                }
+                else if (zoekopdracht === "api") {
+                    window.location.href = "swagger"; // Vervang "swagger" door de werkelijke URL van je Swagger-documentatiepagina
+                }
+                else if (zoekopdracht === "api inzien") {
+                    window.location.href = "swagger"; // Vervang "swagger" door de werkelijke URL van je Swagger-documentatiepagina
+                }
+                else if (zoekopdracht === "swagger") {
+                    window.location.href = "swagger"; // Vervang "swagger" door de werkelijke URL van je Swagger-documentatiepagina
+                }
+                else {
+                    // Als de zoekopdracht niet overeenkomt met een specifieke pagina, kun je de gebruiker naar een standaardpagina sturen
+                    window.location.href = "#"; // Vervang "#" door de werkelijke URL van je standaardpagina
+                }
+
+            }
+        </script>
+
+
+
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
