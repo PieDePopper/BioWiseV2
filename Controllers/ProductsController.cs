@@ -20,11 +20,28 @@ namespace BioWiseV2.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //      return _context.Product != null ? 
+        //                  View(await _context.Product.ToListAsync()) :
+        //                  Problem("Entity set 'ApplicationDbContext.Product'  is null.");
+        //}
+        public async Task<IActionResult> Index(string id)
         {
-              return _context.Product != null ? 
-                          View(await _context.Product.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Product'  is null.");
+            if (_context.Product == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Product'  is null.");
+            }
+
+            var products = from m in _context.Product
+                         select m;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                products = products.Where(s => s.Name!.Contains(id));
+            }
+
+            return View(await products.ToListAsync());
         }
 
         // GET: Products/Details/5
