@@ -19,6 +19,31 @@
     .hidden {
         display: none;
     }
+
+    .incardcontainer {
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .custom-button {
+        text-decoration: none;
+        color: #fff;
+        display: inline-block;
+        padding: 10px 40px; /* Pas de opvulling aan om de breedte van de knop te wijzigen */
+        height: 60px; /* Voeg hoogte toe aan de knop */
+        background-color: #28a745;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+        .custom-button:hover {
+            background-color: #218838;
+        }
 </style>
 
 <body>
@@ -37,9 +62,9 @@
             <img src="https://cdn.discordapp.com/attachments/1151428021341925472/1168508538956558386/image.png?ex=65520561&is=653f9061&hm=6891e88cfcdb900309d121f678e1c690a44447b8cd5355f0271a8004f3d21ae2&" width="25" height="25" />
         </button>
     </form>
-
+    
     <table class="table hidden">
-        <thead>
+@*        <thead>
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
@@ -64,15 +89,27 @@
                 </th>
                 <th></th>
             </tr>
-        </thead>
+        </thead>*@
+        
         <tbody>
+            
             @foreach (var item in Model.Where(p => string.IsNullOrEmpty(searchString) || p.Name.Contains(searchString)))
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        <div class="incardcontainer">
+                        <img src="@Html.DisplayFor(modelItem => item.Image_link)" width="250" height="200">
+                                <div>
+                                <h2>
+                                    <br />
+                                    <br />
+                                    
+                                @Html.DisplayFor(modelItem => item.Name)
+                                </h2>
+                                </div>
+                        </div>
                     </td>
-                    <td>
+@*                    <td>
                         @Html.DisplayFor(modelItem => item.CO2Emmision)
                     </td>
                     <td>
@@ -85,17 +122,26 @@
                         @Html.DisplayFor(modelItem => item.Category)
                     </td>
                     <td>
-                        <img src="@Html.DisplayFor(modelItem => item.Image_link)" width="200" height="200">
+                        
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Suggestion_Id)
-                    </td>
+                    </td>*@
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success link-button custom-button "><h4>Zie product</h4></a>
                     </td>
                 </tr>
+
+
+
+
             }
         </tbody>
     </table>

@@ -3,8 +3,57 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .cardcontainer {
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+</style>
 
-<h1>Details</h1>
+
+<div id="roundcart" class="card text-black bg-white mb-3 cardcontainer" style="width: 81rem; height: 45rem; display: block; clear: both;">
+
+    <div class="card text-black bg-white mb-3 text-center d-flex justify-content-center align-items-center" style="width: 40rem; height: 40rem; position: relative; border: none; float: left;">
+        <img src="@Html.DisplayFor(model => model.Image_link)" style="max-width: 75%; max-height: 75%;">
+    </div>
+
+    <div class="card text-black bg-white mb-3" style="width: 38rem; height: 40rem; float: left; margin-left: 15px; border: none">
+        <p>
+            <h2> &nbsp; Product: @Html.DisplayFor(model => model.Name)</h2>
+        </p>
+        <p>
+            <h5> &nbsp Dit product valt in de categorie @Html.DisplayFor(model => model.Category)</h5>
+        </p>
+        <br />
+        <br />
+
+        <h2>Gegevens</h2>
+            <h5 style="display: flex; align-items: center;">
+                <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1169730283818471424/85qVj63CeMKIG6UWbjn6wnMNtigXgMqFRmrn6gSsaWvj29jcGlI696rOyyffv2lVB31Bs0bv23khYHLA6MSQ78P2kPHjStmM7yAAAAAElFTkSuQmCC.png?ex=65567738&is=65440238&hm=6d20c3fa880c054af77541ba598e21cee2bd92b9f9e4e7725c3e39b2d2c4546c" height="50" width="50" style="margin-right: 10px;">
+            Het stoot @Html.DisplayFor(model => model.CO2Emmision) g CO2eq uit tijdens de productie en het gebruik.
+        </h5>
+            <h5 style="display: flex; align-items: center;">
+                <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1169735693094895706/uypu4ZSlA8AAAAAElFTkSuQmCC.png?ex=65567c41&is=65440741&hm=e2e1933aa458d7fc48af8b2a13040c59a77386f16b1b2a9067893c316c79f28e&" height="50" width="50" style="margin-right: 10px;">
+            Het vereist @Html.DisplayFor(model => model.WaterFootprint) L water bij de fabricage.
+        </h5>
+        <h5 style="display: flex; align-items: center;">
+            <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1169736373792682054/woqFakMFydcQAAAABJRU5ErkJggg.png?ex=65567ce4&is=654407e4&hm=2f3a5f5bbf2285228cd0bd0d71ab146ba04fd8608124f77a75d965bd63a38f19&" height="50" width="50" style="margin-right: 10px;">
+            Het beslaat een oppervlakte van @Html.DisplayFor(model => model.EcologicalFootprint) 0.29 m2/jaar voor landgebruik.
+        </h5>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@*<h1>@Html.DisplayFor(model => model.Name)</h1>
 
 <div>
     <h4>Product</h4>
@@ -53,7 +102,7 @@
             @Html.DisplayFor(model => model.Suggestion_Id)
         </dd>
     </dl>
-</div>
+</div>*@
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
