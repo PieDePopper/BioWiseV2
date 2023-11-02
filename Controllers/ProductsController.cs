@@ -27,7 +27,7 @@ namespace BioWiseV2.Controllers
         //                  Problem("Entity set 'ApplicationDbContext.Product'  is null.");
         //}
 
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index(string searchString)
         {
             if (_context.Product == null)
             {
@@ -37,9 +37,9 @@ namespace BioWiseV2.Controllers
             var products = from m in _context.Product
                          select m;
 
-            if (!String.IsNullOrEmpty(id))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                products = products.Where(s => s.Name!.Contains(id));
+                products = products.Where(s => s.Name!.Contains(searchString));
             }
 
             return View(await products.ToListAsync());

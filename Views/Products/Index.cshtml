@@ -4,68 +4,95 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CO2Emmision)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WaterFootprint)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EcologicalFootprint)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image_link)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Suggestion_Id)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CO2Emmision)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WaterFootprint)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EcologicalFootprint)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image_link)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Suggestion_Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+@{
+    string searchString = ViewData["SearchString"] as string;
 }
-    </tbody>
-</table>
+
+<style>
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+</style>
+
+<body>
+    <img src="https://cdn.discordapp.com/attachments/1151428021341925472/1168502428694491247/image.png?ex=6551ffb0&is=653f8ab0&hm=a5fc1372794597f3328269153235a0583304ef434cb1c8b04420f438d5e3c74d&" style="width: 80%" class="center">
+    <form asp-controller="Products" asp-action="Index" method="get" class="d-flex center">
+        <button class="nav-link dropdown-toggle btn btn-white my-2 my-sm-0" style="color: grey; border-color:grey" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+        <div style="color: grey; border-color:grey" class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class("dropdown-item" href="#">Another action</a>
+            <a class("dropdown-item" href="#">Something else here</a>
+            <div class("dropdown-divider"></div>
+            <a class("dropdown-item" href="#">Separated link</a>
+        </div>
+        <input class="form-control me-sm-2" style="color: grey; border-color:grey;" type="text" name="SearchString" placeholder="Search" value="@searchString" width="300">
+        <button id="searchbutton" class="btn btn-white my-2 my-sm-0" style="color: grey; border-color:grey" type="submit">
+            <img src="https://cdn.discordapp.com/attachments/1151428021341925472/1168508538956558386/image.png?ex=65520561&is=653f9061&hm=6891e88cfcdb900309d121f678e1c690a44447b8cd5355f0271a8004f3d21ae2&" width="25" height="25" />
+        </button>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CO2Emmision)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WaterFootprint)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EcologicalFootprint)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image_link)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Suggestion_Id)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(p => string.IsNullOrEmpty(searchString) || p.Name.Contains(searchString)))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CO2Emmision)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WaterFootprint)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EcologicalFootprint)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Image_link)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Suggestion_Id)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
