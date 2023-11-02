@@ -15,6 +15,10 @@
         margin-right: auto;
         width: 50%;
     }
+
+    .hidden {
+        display: none;
+    }
 </style>
 
 <body>
@@ -23,18 +27,18 @@
         <button class="nav-link dropdown-toggle btn btn-white my-2 my-sm-0" style="color: grey; border-color:grey" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</button>
         <div style="color: grey; border-color:grey" class="dropdown-menu">
             <a class="dropdown-item" href="#">Action</a>
-            <a class("dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Another action</a>
             <a class("dropdown-item" href="#">Something else here</a>
             <div class("dropdown-divider"></div>
             <a class("dropdown-item" href="#">Separated link</a>
         </div>
-        <input class="form-control me-sm-2" style="color: grey; border-color:grey;" type="text" name="SearchString" placeholder="Search" value="@searchString" width="300">
+        <input id="SearchString" class="form-control me-sm-2" style="color: grey; border-color:grey;" type="text" name="SearchString" placeholder="Search" value="@searchString" width="300">
         <button id="searchbutton" class="btn btn-white my-2 my-sm-0" style="color: grey; border-color:grey" type="submit">
             <img src="https://cdn.discordapp.com/attachments/1151428021341925472/1168508538956558386/image.png?ex=65520561&is=653f9061&hm=6891e88cfcdb900309d121f678e1c690a44447b8cd5355f0271a8004f3d21ae2&" width="25" height="25" />
         </button>
     </form>
 
-    <table class="table">
+    <table class="table hidden">
         <thead>
             <tr>
                 <th>
@@ -81,7 +85,7 @@
                         @Html.DisplayFor(modelItem => item.Category)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Image_link)
+                        <img src="@Html.DisplayFor(modelItem => item.Image_link)" width="200" height="200">
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Suggestion_Id)
@@ -96,3 +100,33 @@
         </tbody>
     </table>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#searchbutton").on("click", function (e) {
+            e.preventDefault(); // Voorkom het standaardgedrag van het formulier
+            var searchString = $("#SearchString").val().toLowerCase(); // Converteer de zoekterm naar kleine letters
+
+            if (searchString) {
+                // Als de zoekterm niet leeg is, toon de tabel en voer de zoekopdracht uit
+                $(".table").removeClass("hidden");
+                filterTable(searchString);
+            }
+        });
+
+        function filterTable(searchString) {
+            // Loop door de rijen van de tabel en toon/verberg op basis van de zoekterm
+            $(".table tbody tr").each(function () {
+                var row = $(this);
+                var name = row.find("td:eq(0)").text().toLowerCase(); // Hier 0 aanpassen aan de juiste kolomindex
+
+                if (name.includes(searchString)) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
+        }
+    });
+</script>
