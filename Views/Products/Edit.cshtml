@@ -19,9 +19,19 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Emmission" class="control-label"></label>
-                <input asp-for="Emmission" class="form-control" />
-                <span asp-validation-for="Emmission" class="text-danger"></span>
+                <label asp-for="CO2Emmision" class="control-label"></label>
+                <input asp-for="CO2Emmision" class="form-control" />
+                <span asp-validation-for="CO2Emmision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WaterFootprint" class="control-label"></label>
+                <input asp-for="WaterFootprint" class="form-control" />
+                <span asp-validation-for="WaterFootprint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EcologicalFootprint" class="control-label"></label>
+                <input asp-for="EcologicalFootprint" class="form-control" />
+                <span asp-validation-for="EcologicalFootprint" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
@@ -49,3 +59,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

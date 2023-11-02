@@ -20,28 +20,11 @@ namespace BioWiseV2.Controllers
         }
 
         // GET: Products
-        //public async Task<IActionResult> Index()
-        //{
-        //      return _context.Product != null ? 
-        //                  View(await _context.Product.ToListAsync()) :
-        //                  Problem("Entity set 'ApplicationDbContext.Product'  is null.");
-        //}
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index()
         {
-            if (_context.Product == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Product'  is null.");
-            }
-
-            var products = from m in _context.Product
-                         select m;
-
-            if (!String.IsNullOrEmpty(id))
-            {
-                products = products.Where(s => s.Name!.Contains(id));
-            }
-
-            return View(await products.ToListAsync());
+              return _context.Product != null ? 
+                          View(await _context.Product.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Product'  is null.");
         }
 
         // GET: Products/Details/5
@@ -73,7 +56,7 @@ namespace BioWiseV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Emmission,Category,Image_link,Suggestion_Id")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,CO2Emmision,WaterFootprint,EcologicalFootprint,Category,Image_link,Suggestion_Id")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +88,7 @@ namespace BioWiseV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Emmission,Category,Image_link,Suggestion_Id")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CO2Emmision,WaterFootprint,EcologicalFootprint,Category,Image_link,Suggestion_Id")] Product product)
         {
             if (id != product.Id)
             {

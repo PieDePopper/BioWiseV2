@@ -4,7 +4,10 @@
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public int Emmission { get; set; }
+
+        public float CO2Emmision { get; set; }
+        public float WaterFootprint { get; set; }
+        public float EcologicalFootprint { get; set; }
         public string? Category { get; set; }
         public string? Image_link { get; set; }
 
