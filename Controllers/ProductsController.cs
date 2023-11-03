@@ -74,7 +74,7 @@ namespace BioWiseV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CO2Emmision,WaterFootprint,EcologicalFootprint,Category,Image_link,Suggestion_Id")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,CO2Emmision,WaterFootprint,EcologicalFootprint,Category,Image_link,QualityMark_link,Suggestion_Id")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@ namespace BioWiseV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CO2Emmision,WaterFootprint,EcologicalFootprint,Category,Image_link,Suggestion_Id")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CO2Emmision,WaterFootprint,EcologicalFootprint,Category,Image_link,QualityMark_link,Suggestion_Id")] Product product)
         {
             if (id != product.Id)
             {
