@@ -20,17 +20,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="CO2Emmision" class="control-label"></label>
-                <input asp-for="CO2Emmision" class="form-control" />
+                <input asp-for="CO2Emmision" type="number" step="0.01" class="form-control" />
                 <span asp-validation-for="CO2Emmision" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="WaterFootprint" class="control-label"></label>
-                <input asp-for="WaterFootprint" class="form-control" />
+                <input asp-for="WaterFootprint" type="number" step="0.01" class="form-control" />
                 <span asp-validation-for="WaterFootprint" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EcologicalFootprint" class="control-label"></label>
-                <input asp-for="EcologicalFootprint" class="form-control" />
+                <input asp-for="EcologicalFootprint" type="number" step="0.01" class="form-control" />
                 <span asp-validation-for="EcologicalFootprint" class="text-danger"></span>
             </div>
             <div class="form-group">
