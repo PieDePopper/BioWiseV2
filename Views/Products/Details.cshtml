@@ -38,12 +38,14 @@
                 <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1169735693094895706/uypu4ZSlA8AAAAAElFTkSuQmCC.png?ex=65567c41&is=65440741&hm=e2e1933aa458d7fc48af8b2a13040c59a77386f16b1b2a9067893c316c79f28e&" height="50" width="50" style="margin-right: 10px;">
             Het vereist @Html.DisplayFor(model => model.WaterFootprint) L water bij de fabricage.
         </h5>
-        @Html.DisplayFor(model => model.QualityMark_link)
+        
         <h5 style="display: flex; align-items: center;">
             <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1169736373792682054/woqFakMFydcQAAAABJRU5ErkJggg.png?ex=65567ce4&is=654407e4&hm=2f3a5f5bbf2285228cd0bd0d71ab146ba04fd8608124f77a75d965bd63a38f19&" height="50" width="50" style="margin-right: 10px;">
             Het beslaat een oppervlakte van @Html.DisplayFor(model => model.EcologicalFootprint) m2/jaar voor landgebruik.
         </h5>
-
+        <br />
+        <br />
+        <img src="@Html.DisplayFor(model => model.QualityMark_link)" height="100" width="100" />
     </div>
 </div>
 
@@ -106,5 +108,6 @@
 </div>*@
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+@*    <a asp-action="Index">Back to List</a>*@
+    <button type="button" class="btn btn-success" style="float:left"><h1 style="font-size: 13px;" onclick="window.location.href = '..';"> Terug</h1></button>
 </div>
