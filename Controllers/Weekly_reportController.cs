@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using BioWiseV2.Data;
 using BioWiseV2.Models;
 using BioWiseV2.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BioWiseV2.Controllers
 {
+    [Authorize]
     public class Weekly_reportController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -18,14 +20,17 @@ namespace BioWiseV2.Controllers
         public Weekly_reportController(ApplicationDbContext context)
         {
             _context = context;
+
         }
+
 
         // GET: Weekly_report
         public async Task<IActionResult> Index()
         {
-              //return _context.Weekly_report != null ? 
-              //            View(await _context.Weekly_report.ToListAsync()) :
-              //            Problem("Entity set 'ApplicationDbContext.Weekly_report'  is null.");
+
+            //return _context.Weekly_report != null ? 
+            //            View(await _context.Weekly_report.ToListAsync()) :
+            //            Problem("Entity set 'ApplicationDbContext.Weekly_report'  is null.");
 
             WeeklyReportAndGoalViewModel vm = new WeeklyReportAndGoalViewModel();
             vm.WeeklyReport = await _context.Weekly_report.ToListAsync();

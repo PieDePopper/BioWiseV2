@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BioWiseV2.Data;
 using BioWiseV2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BioWiseV2.Controllers
 {
+    [Authorize]
     public class GoalsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,7 +25,7 @@ namespace BioWiseV2.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Goal.Include(g => g.Consumer);
-            return View(await applicationDbContext.ToListAsync()); 
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Goals/Details/5
@@ -148,21 +150,21 @@ namespace BioWiseV2.Controllers
         {
             if (_context.Goal == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Goal'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Goal' is null.");
             }
             var goal = await _context.Goal.FindAsync(id);
             if (goal != null)
             {
                 _context.Goal.Remove(goal);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GoalExists(int id)
         {
-          return (_context.Goal?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Goal?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
