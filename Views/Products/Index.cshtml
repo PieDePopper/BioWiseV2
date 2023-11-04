@@ -92,7 +92,6 @@
         </thead>*@
         
         <tbody>
-            
             @foreach (var item in Model.Where(p => string.IsNullOrEmpty(searchString) || p.Name.Contains(searchString)))
             {
                 <tr>
@@ -149,6 +148,7 @@
 
 
             }
+
         </tbody>
     </table>
 </body>
