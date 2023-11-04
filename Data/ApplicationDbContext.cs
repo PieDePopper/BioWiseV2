@@ -11,5 +11,7 @@ namespace BioWiseV2.Data
         {
         }
         public DbSet<BioWiseV2.Models.Product> Product { get; set; } = default!;
+        public DbSet<BioWiseV2.Models.Weekly_report> Weekly_report { get; set; } = default!;
+        public DbSet<BioWiseV2.Models.Goal> Goal { get; set; } = default!;
     }
 }
