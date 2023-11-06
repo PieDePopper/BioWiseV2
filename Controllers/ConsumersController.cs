@@ -7,103 +7,90 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BioWiseV2.Data;
 using BioWiseV2.Models;
-using BioWiseV2.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 
 namespace BioWiseV2.Controllers
 {
-    [Authorize]
-    public class Weekly_reportController : Controller
+    public class ConsumersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Weekly_reportController(ApplicationDbContext context)
+        public ConsumersController(ApplicationDbContext context)
         {
             _context = context;
-
         }
 
-
-        // GET: Weekly_report
+        // GET: Consumers
         public async Task<IActionResult> Index()
         {
-
-            //return _context.Weekly_report != null ? 
-            //            View(await _context.Weekly_report.ToListAsync()) :
-            //            Problem("Entity set 'ApplicationDbContext.Weekly_report'  is null.");
-
-            WeeklyReportAndGoalViewModel vm = new WeeklyReportAndGoalViewModel();
-            vm.WeeklyReports = await _context.Weekly_report.ToListAsync();
-            vm.Goals = await _context.Goal.Include(g => g.Consumer).ToListAsync();
-            vm.TransportUsages = await _context.TransportUsage.Include(t => t.Consumer).Include(t => t.Weekly_report).ToListAsync();
-            vm.Consumers = await _context.Consumer.ToListAsync();
-            return View(vm);
+              return _context.Consumer != null ? 
+                          View(await _context.Consumer.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Consumer'  is null.");
         }
 
-        // GET: Weekly_report/Details/5
+        // GET: Consumers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Weekly_report == null)
+            if (id == null || _context.Consumer == null)
             {
                 return NotFound();
             }
 
-            var weekly_report = await _context.Weekly_report
+            var consumer = await _context.Consumer
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (weekly_report == null)
+            if (consumer == null)
             {
                 return NotFound();
             }
 
-            return View(weekly_report);
+            return View(consumer);
         }
 
-        // GET: Weekly_report/Create
+        // GET: Consumers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Weekly_report/Create
+        // POST: Consumers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Weeknr,Transport_emission,Total,Difference,TransportusageId")] Weekly_report weekly_report)
+        public async Task<IActionResult> Create([Bind("Id,Name,TransportUsageId,GoalId,SuggestionId")] Consumer consumer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(weekly_report);
+                _context.Add(consumer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(weekly_report);
+            return View(consumer);
         }
 
-        // GET: Weekly_report/Edit/5
+        // GET: Consumers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Weekly_report == null)
+            if (id == null || _context.Consumer == null)
             {
                 return NotFound();
             }
 
-            var weekly_report = await _context.Weekly_report.FindAsync(id);
-            if (weekly_report == null)
+            var consumer = await _context.Consumer.FindAsync(id);
+            if (consumer == null)
             {
                 return NotFound();
             }
-            return View(weekly_report);
+            return View(consumer);
         }
 
-        // POST: Weekly_report/Edit/5
+        // POST: Consumers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Weeknr,Transport_emission,Total,Difference,TransportusageId")] Weekly_report weekly_report)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,TransportUsageId,GoalId,SuggestionId")] Consumer consumer)
         {
-            if (id != weekly_report.Id)
+            if (id != consumer.Id)
             {
                 return NotFound();
             }
@@ -112,12 +99,12 @@ namespace BioWiseV2.Controllers
             {
                 try
                 {
-                    _context.Update(weekly_report);
+                    _context.Update(consumer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!Weekly_reportExists(weekly_report.Id))
+                    if (!ConsumerExists(consumer.Id))
                     {
                         return NotFound();
                     }
@@ -128,49 +115,49 @@ namespace BioWiseV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(weekly_report);
+            return View(consumer);
         }
 
-        // GET: Weekly_report/Delete/5
+        // GET: Consumers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Weekly_report == null)
+            if (id == null || _context.Consumer == null)
             {
                 return NotFound();
             }
 
-            var weekly_report = await _context.Weekly_report
+            var consumer = await _context.Consumer
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (weekly_report == null)
+            if (consumer == null)
             {
                 return NotFound();
             }
 
-            return View(weekly_report);
+            return View(consumer);
         }
 
-        // POST: Weekly_report/Delete/5
+        // POST: Consumers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Weekly_report == null)
+            if (_context.Consumer == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Weekly_report'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Consumer'  is null.");
             }
-            var weekly_report = await _context.Weekly_report.FindAsync(id);
-            if (weekly_report != null)
+            var consumer = await _context.Consumer.FindAsync(id);
+            if (consumer != null)
             {
-                _context.Weekly_report.Remove(weekly_report);
+                _context.Consumer.Remove(consumer);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool Weekly_reportExists(int id)
+        private bool ConsumerExists(int id)
         {
-          return (_context.Weekly_report?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Consumer?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
