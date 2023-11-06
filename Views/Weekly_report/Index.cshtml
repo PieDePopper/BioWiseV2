@@ -12,7 +12,7 @@
 </p>
 <table class="table">
     <tbody>
-        @foreach (var item in Model.WeeklyReport)
+        @foreach (var item in Model.WeeklyReports)
         {
         <tr>
             <td>
@@ -49,7 +49,7 @@
 </p>
 <table class="table">
     <tbody>
-        @foreach (var item in Model.Goal)
+        @foreach (var item in Model.Goals)
         {
             <tr>
                 <td>
@@ -73,4 +73,39 @@
         }
     </tbody>
 </table>
+
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Goals" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.TransportUsages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emmission_KM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Consumer.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weekly_report.Id)
+                </td>
+                <td>
+                    <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Goals" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Goals" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 

@@ -33,8 +33,9 @@ namespace BioWiseV2.Controllers
             //            Problem("Entity set 'ApplicationDbContext.Weekly_report'  is null.");
 
             WeeklyReportAndGoalViewModel vm = new WeeklyReportAndGoalViewModel();
-            vm.WeeklyReport = await _context.Weekly_report.ToListAsync();
-            vm.Goal = await _context.Goal.Include(g => g.Consumer).ToListAsync();
+            vm.WeeklyReports = await _context.Weekly_report.ToListAsync();
+            vm.Goals = await _context.Goal.Include(g => g.Consumer).ToListAsync();
+            vm.TransportUsages = await _context.TransportUsage.Include(t => t.Consumer).Include(t => t.Weekly_report).ToListAsync();
             return View(vm);
         }
 
