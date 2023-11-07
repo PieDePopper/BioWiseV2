@@ -4,43 +4,42 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Het aanmaken van een nieuw doel</h1>
 
-<h4>Goal</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Personalgoal" class="control-label"></label>
-                <input asp-for="Personalgoal" class="form-control" />
+                <label asp-for="Personalgoal" style="display:none" class="control-label"></label>
+                Uw doel: <input asp-for="Personalgoal" class="form-control" />
                 <span asp-validation-for="Personalgoal" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+@*            <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Completed" /> @Html.DisplayNameFor(model => model.Completed)
                 </label>
-            </div>
+            </div>*@
             <div class="form-group">
-                <label asp-for="Impact" class="control-label"></label>
-                <input asp-for="Impact" class="form-control" />
+                <label asp-for="Impact" style="display:none" class="control-label"></label>
+                Uitstoot (gram CO2 per kilometer): <input asp-for="Impact" class="form-control" />
                 <span asp-validation-for="Impact" class="text-danger"></span>
             </div>
-            <div class="form-group">
+@*            <div class="form-group">
                 <label asp-for="ConsumerId" class="control-label"></label>
                 <select asp-for="ConsumerId" class ="form-control" asp-items="ViewBag.ConsumerId"></select>
-            </div>
+            </div>*@
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Doel aanmaken" class="btn btn-success" style="width: 10rem" /> &nbsp; <input onclick="window.location.href='../voortgang'" value="Terug" class="btn btn-danger" style="width: 10rem" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-controller="Weekly_report" asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

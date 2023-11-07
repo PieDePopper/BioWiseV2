@@ -4,45 +4,53 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Goal</h4>
+<h4>Weet u zeker dat u uw doel heeft behaald</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
+            <h4>
+            <p>Doel: @Html.DisplayFor(modelItem => Model.Personalgoal)</p>
+            <p>Uitstoot: @Html.DisplayFor(modelItem => Model.Impact)</p>
+            </h4>
+
+            <button class="btn btn-success" id="completeButton">
+                <label class="form-check-label">
+                    <input class="form-check-input" style="display:none" asp-for="Completed" /> Doel behaald
+                </label>
+            </button>
+            <button type="button" class="btn btn-danger" onclick="window.location.href='https://localhost:7138/Voortgang'">Anuleer</button>
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Personalgoal" class="control-label"></label>
-                <input asp-for="Personalgoal" class="form-control" />
+                <label asp-for="Personalgoal" style="display:none" class="control-label"></label>
+                <input asp-for="Personalgoal" style="display:none"  class="form-control" />
                 <span asp-validation-for="Personalgoal" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Completed" /> @Html.DisplayNameFor(model => model.Completed)
+                    <input class="form-check-input" style="display:none" asp-for="Completed" style="display:none" />@* @Html.DisplayNameFor(model => model.Completed)*@
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="Impact" class="control-label"></label>
-                <input asp-for="Impact" class="form-control" />
+                <label asp-for="Impact" style="display:none" class="control-label"></label>
+                <input asp-for="Impact" style="display:none" class="form-control" />
                 <span asp-validation-for="Impact" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConsumerId" class="control-label"></label>
-                <select asp-for="ConsumerId" class="form-control" asp-items="ViewBag.ConsumerId"></select>
+                <label asp-for="ConsumerId" style="display:none" class="control-label"></label>
+                <select asp-for="ConsumerId" style="display:none" class="form-control" asp-items="ViewBag.ConsumerId"></select>
                 <span asp-validation-for="ConsumerId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+@*            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            </div>*@
+
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -5,6 +5,54 @@
     ViewData["Title"] = "Index";
 }
 
+<h2>Welkom @User.Identity?.Name op deze pagina!</h2>
+<p>Op deze pagina kun je jouw persoonlijke doelen creëren en bijhouden, evenals je vervoersgebruik bijhouden.</p>
+<p>Start door nieuwe doelen te creëren of je voortgang te beheren voor bestaande doelen. Daarnaast kun je je vervoersgegevens invoeren en beheren om inzicht te krijgen in je milieubijdrage.</p>
+<p>Gebruik de beschikbare opties in het menu om aan de slag te gaan. Veel succes!</p>
+
+
+<!-- Doelen (Goals) -->
+<h1>goals Index</h1>
+<p>
+    <button type="button" class="btn btn-success" onclick="window.location.href='../Goals/create'">Maak nieuw doel</button>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.Goals)
+        {
+            @if (item.Consumer != null && item.Consumer.Name == User.Identity?.Name)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Personalgoal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Impact) gram CO2 per kilometer
+                    </td>
+                    <!-- Voeg andere velden van Goals toe zoals Completed en Impact -->
+                    <td>
+                        Behaald: @Html.DisplayFor(modelItem => item.Completed) 
+                    </td>
+                    <td>
+                        @if (!item.Completed)
+                        {
+                            <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id"><img src="https://cdn.discordapp.com/attachments/1164149724371230750/1171156686388613251/image.png?ex=655ba7a9&is=654932a9&hm=f98be0d0ac022761f4bc72860db64ec30d577caa73c2251534c4905153cccaaf&" width="50" height="50" /></a>
+
+                        }
+                        <a asp-controller="Goals" asp-action="Delete" asp-route-id="@item.Id"><img src="https://cdn.discordapp.com/attachments/1164149724371230750/1171157427912200242/image.png?ex=655ba859&is=65493359&hm=7746df8fd8e8d9148d84a928aead9207988f5714a481b9563225107f399cd5fa&" width="50" height="50" /></a>
+                    </td>
+@*                    <td>
+                        <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Goals" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="Goals" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>*@
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
 <h1>weekly report Index</h1>
 
 <!-- Wekelijkse Rapporten -->
@@ -30,33 +78,8 @@
     </tbody>
 </table>
 
-<h1>goals Index</h1>
 
-<!-- Doelen (Goals) -->
-<p>
-    <a asp-controller="Goals" asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <tbody>
-        @foreach (var item in Model.Goals)
-        {
-            if (item.Consumer.Name == User.Identity?.Name)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Personalgoal)
-                    </td>
-                    <!-- Voeg andere velden van Goals toe zoals Completed en Impact -->
-                    <td>
-                        <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-controller="Goals" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-controller="Goals" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+
 
 <h1>transportusages Index</h1>
 
