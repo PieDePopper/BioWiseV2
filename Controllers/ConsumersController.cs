@@ -66,14 +66,14 @@ namespace BioWiseV2.Controllers
                 if (existingConsumer != null)
                 {
                     // If a Consumer with the same name exists, redirect to the Weekly_report/Index page
-                    return RedirectToAction("Index", "Weekly_report");
+                    return RedirectToAction("Index", "Voortgang");
                 }
 
                 _context.Add(consumer);
                 await _context.SaveChangesAsync();
 
                 // Redirect to the Weekly_report/Index page after successfully creating a new Consumer
-                return RedirectToAction("Index", "Weekly_report");
+                return RedirectToAction("Index", "Voortgang");
             }
 
             return View(consumer);

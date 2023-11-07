@@ -1,0 +1,142 @@
+﻿@using BioWiseV2.ViewModels
+@model WeeklyReportAndGoalViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+ 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.WeeklyReports)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weeknr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transport_emission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Difference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransportusageId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Goals" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.Goals)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Personalgoal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Completed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Impact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Consumer.Id)
+                </td>
+                <td>
+                    <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Goals" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Goals" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Goals" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.TransportUsages)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emmission_KM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Consumer.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weekly_report.Id)
+                </td>
+                <td>
+                    <a asp-controller="TransportUsages" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="TransportUsages" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="TransportUsages" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Goals" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.Consumers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransportUsageId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoalId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuggestionId)
+                </td>
+                <td>
+                    <a asp-controller="Consumers" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-controller="Consumers" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="Consumers" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
