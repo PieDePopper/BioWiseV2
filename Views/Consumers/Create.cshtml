@@ -1,37 +1,21 @@
 ﻿@model BioWiseV2.Models.Consumer
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Create";
 }
-
-<h1>Create</h1>
-
-<h4>Consumer</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="createConsumerForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name" style="display:none" class="control-label"></label>
+                <input asp-for="Name" style="display:none" class="form-control" id="nameInput" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TransportUsageId" class="control-label"></label>
-                <input asp-for="TransportUsageId" class="form-control" />
-                <span asp-validation-for="TransportUsageId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GoalId" class="control-label"></label>
-                <input asp-for="GoalId" class="form-control" />
-                <span asp-validation-for="GoalId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SuggestionId" class="control-label"></label>
-                <input asp-for="SuggestionId" class="form-control" />
-                <span asp-validation-for="SuggestionId" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -44,5 +28,11 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+
+<script>
+    document.getElementById("nameInput").value = '@User.Identity?.Name';
+</script>

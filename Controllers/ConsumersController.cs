@@ -60,12 +60,26 @@ namespace BioWiseV2.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check if a Consumer with the same name already exists
+                var existingConsumer = await _context.Consumer.FirstOrDefaultAsync(c => c.Name == consumer.Name);
+
+                if (existingConsumer != null)
+                {
+                    // If a Consumer with the same name exists, redirect to the Weekly_report/Index page
+                    return RedirectToAction("Index", "Weekly_report");
+                }
+
                 _context.Add(consumer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                // Redirect to the Weekly_report/Index page after successfully creating a new Consumer
+                return RedirectToAction("Index", "Weekly_report");
             }
+
             return View(consumer);
         }
+
+
 
         // GET: Consumers/Edit/5
         public async Task<IActionResult> Edit(int? id)
