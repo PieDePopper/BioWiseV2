@@ -5,8 +5,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
- 
+<h1>weekly report Index</h1>
+
+<!-- Wekelijkse Rapporten -->
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -14,36 +15,24 @@
     <tbody>
         @foreach (var item in Model.WeeklyReports)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weeknr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Transport_emission)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Difference)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransportusageId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weeknr)
+                </td>
+                <!-- Voeg andere velden van WeeklyReports toe zoals Transport_emission, Total, en Difference -->
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
+<h1>goals Index</h1>
 
-
-<h1>Index</h1>
-
+<!-- Doelen (Goals) -->
 <p>
     <a asp-controller="Goals" asp-action="Create">Create New</a>
 </p>
@@ -51,92 +40,76 @@
     <tbody>
         @foreach (var item in Model.Goals)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Personalgoal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Completed)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Impact)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Consumer.Id)
-                </td>
-                <td>
-                    <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="Goals" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-controller="Goals" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            if (item.Consumer.Name == User.Identity?.Name)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Personalgoal)
+                    </td>
+                    <!-- Voeg andere velden van Goals toe zoals Completed en Impact -->
+                    <td>
+                        <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Goals" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="Goals" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
 
+<h1>transportusages Index</h1>
 
-
-<h1>Index</h1>
-
+<!-- Transportgebruik (TransportUsages) -->
 <p>
-    <a asp-controller="Goals" asp-action="Create">Create New</a>
+    <a asp-controller="TransportUsages" asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <tbody>
         @foreach (var item in Model.TransportUsages)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Distance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Emmission_KM)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Consumer.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Weekly_report.Id)
-                </td>
-                <td>
-                    <a asp-controller="TransportUsages" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="TransportUsages" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-controller="TransportUsages" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            if (item.Consumer.Name == User.Identity?.Name)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Distance)
+                    </td>
+                    <!-- Voeg andere velden van TransportUsages toe zoals Emmission_KM -->
+                    <td>
+                        <a asp-controller="TransportUsages" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="TransportUsages" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="TransportUsages" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
 
+<h1>consumers Index</h1>
 
-<h1>Index</h1>
-
+<!-- Consumenten (Consumers) -->
 <p>
-    <a asp-controller="Goals" asp-action="Create">Create New</a>
+    <a asp-controller="Consumers" asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <tbody>
         @foreach (var item in Model.Consumers)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TransportUsageId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GoalId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SuggestionId)
-                </td>
-                <td>
-                    <a asp-controller="Consumers" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-controller="Consumers" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-controller="Consumers" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            if (item.Name == User.Identity?.Name)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <!-- Voeg andere velden van Consumers toe zoals TransportUsageId, GoalId en SuggestionId -->
+                    <td>
+                        <a asp-controller="Consumers" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-controller="Consumers" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-controller="Consumers" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

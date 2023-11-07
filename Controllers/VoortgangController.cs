@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BioWiseV2.Controllers
 {
+    [Authorize]
     public class VoortgangController : Controller
     {
 
