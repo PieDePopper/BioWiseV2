@@ -4,13 +4,17 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Doel verwijderen</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Weet u zeker dat u het doel wilt verwijderen?</h3>
 <div>
     <h4>Goal</h4>
     <hr />
-    <dl class="row">
+    <h4>
+        <p>Doel: @Html.DisplayFor(modelItem => Model.Personalgoal)</p>
+        <p>Uitstoot: @Html.DisplayFor(modelItem => Model.Impact) gram CO2 per kilometer</p>
+    </h4>
+    @*<dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Personalgoal)
         </dt>
@@ -35,11 +39,13 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Consumer.Id)
         </dd>
-    </dl>
+    </dl>*@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-success" /> 
+        <button type="button" class="btn btn-danger" onclick="window.location.href='https://localhost:7138/Voortgang'">Anuleer</button>
+
+        
     </form>
 </div>
