@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BioWiseV2.Data;
 using BioWiseV2.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BioWiseV2.Controllers
 {
@@ -59,14 +60,35 @@ namespace BioWiseV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Personalgoal,Completed,Impact,ConsumerId")] Goal goal)
+        public async Task<IActionResult> Create([Bind("Id,Personalgoal,Completed,Impact")] Goal goal)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(goal);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Get the username of the currently logged-in user
+                var userName = User.Identity?.Name;
+
+                if (userName == null)
+                {
+                    // Handle the case where the user is not logged in
+                    return RedirectToAction("Login", "Account"); // Redirect to the login page or handle it as needed
+                }
+
+                // Find the Consumer with a matching username
+                var consumer = await _context.Consumer.FirstOrDefaultAsync(c => c.Name == userName);
+
+                if (consumer != null)
+                {
+                    // Set the ConsumerId of the new Goal to the found Consumer's ID
+                    goal.ConsumerId = consumer.Id;
+
+                    // Add and save the new Goal to the database
+                    _context.Add(goal);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
+            // If there is an issue or the user is not logged in, return to the Create view
             ViewData["ConsumerId"] = new SelectList(_context.Set<Consumer>(), "Id", "Id", goal.ConsumerId);
             return View(goal);
         }

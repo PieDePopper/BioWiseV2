@@ -59,14 +59,35 @@ namespace BioWiseV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Distance,Emmission_KM,ConsumerId,Weekly_reportId")] TransportUsage transportUsage)
+        public async Task<IActionResult> Create([Bind("Id,Distance,Emmission_KM,Weekly_reportId")] TransportUsage transportUsage)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(transportUsage);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Get the username of the currently logged-in user
+                var userName = User.Identity?.Name;
+
+                if (userName == null)
+                {
+                    // Handle the case where the user is not logged in
+                    return RedirectToAction("Login", "Account"); // Redirect to the login page or handle it as needed
+                }
+
+                // Find the Consumer with a matching username
+                var consumer = await _context.Consumer.FirstOrDefaultAsync(c => c.Name == userName);
+
+                if (consumer != null)
+                {
+                    // Set the ConsumerId of the new TransportUsage to the found Consumer's ID
+                    transportUsage.ConsumerId = consumer.Id;
+
+                    // Add and save the new TransportUsage to the database
+                    _context.Add(transportUsage);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
+            // If there is an issue or the user is not logged in, return to the Create view
             ViewData["ConsumerId"] = new SelectList(_context.Set<Consumer>(), "Id", "Id", transportUsage.ConsumerId);
             ViewData["Weekly_reportId"] = new SelectList(_context.Weekly_report, "Id", "Id", transportUsage.Weekly_reportId);
             return View(transportUsage);

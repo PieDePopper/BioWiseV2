@@ -28,16 +28,9 @@ namespace BioWiseV2.Controllers
         public async Task<IActionResult> Index()
         {
 
-            //return _context.Weekly_report != null ? 
-            //            View(await _context.Weekly_report.ToListAsync()) :
-            //            Problem("Entity set 'ApplicationDbContext.Weekly_report'  is null.");
-
-            WeeklyReportAndGoalViewModel vm = new WeeklyReportAndGoalViewModel();
-            vm.WeeklyReports = await _context.Weekly_report.ToListAsync();
-            vm.Goals = await _context.Goal.Include(g => g.Consumer).ToListAsync();
-            vm.TransportUsages = await _context.TransportUsage.Include(t => t.Consumer).Include(t => t.Weekly_report).ToListAsync();
-            vm.Consumers = await _context.Consumer.ToListAsync();
-            return View(vm);
+            return _context.Weekly_report != null ? 
+                        View(await _context.Weekly_report.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Weekly_report'  is null.");
         }
 
         // GET: Weekly_report/Details/5
