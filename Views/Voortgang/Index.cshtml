@@ -142,3 +142,23 @@
         }
     </tbody>
 </table>
+
+
+
+<h1>Weeklyreport test</h1>
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.TransportUsages)
+        {
+            if (item.Weekly_reportId == 1)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Distance)
+                    </td>                    
+                </tr>
+            }
+        }
+    </tbody>
+</table>

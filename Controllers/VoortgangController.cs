@@ -38,7 +38,6 @@ namespace BioWiseV2.Controllers
             vm.Goals = await _context.Goal.Include(g => g.Consumer).Where(g => g.ConsumerId == vm.CurrentConsumerId).ToListAsync();
             vm.TransportUsages = await _context.TransportUsage.Where(g => g.ConsumerId == vm.CurrentConsumerId).Include(t => t.Consumer).Include(t => t.Weekly_report).ToListAsync();
             vm.WeeklyReports = await _context.Weekly_report.ToListAsync();
-
             return View(vm);
         }
 
