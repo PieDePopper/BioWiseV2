@@ -98,7 +98,7 @@
     <tbody>
         @foreach (var item in Model.TransportUsages)
         {
-            if (item.Consumer.Name == User.Identity?.Name)
+            if (item.Consumer != null && item.Consumer.Name == User.Identity?.Name)
             {
                 <tr>
                     <td>
