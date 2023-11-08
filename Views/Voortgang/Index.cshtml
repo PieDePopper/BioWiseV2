@@ -162,3 +162,24 @@
         }
     </tbody>
 </table>
+
+<p>Actueel weeknummer: <span id="weekNumber"></span></p>
+    <script>
+            // JavaScript-code om het actuele weeknummer te berekenen
+            var currentDate = new Date();
+    var weekNumber = getWeekNumber(currentDate);
+
+    function getWeekNumber(date) {
+        // Kopieer de datum om de originele datum niet te veranderen
+        date = new Date(date);
+        date.setHours(0, 0, 0, 0);
+        // Stel de dag in op donderdag (de ISO-norm voor weeknummers)
+        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+        var startOfYear = new Date(date.getFullYear(), 0, 1);
+        var weekNumber = Math.ceil(((date - startOfYear) / 86400000 + 1) / 7);
+        return weekNumber;
+    }
+
+    // Voeg het actuele weeknummer in de HTML in
+    document.getElementById("weekNumber").textContent = weekNumber;
+    </script>
