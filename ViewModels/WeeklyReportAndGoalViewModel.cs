@@ -4,6 +4,7 @@ namespace BioWiseV2.ViewModels
 {
     public class WeeklyReportAndGoalViewModel
     {
+        public int CurrentConsumerId { get; set; }
         public List<Weekly_report> WeeklyReports { get; set; }
         public List<Goal> Goals { get; set; }
         public List<TransportUsage> TransportUsages { get; set; }

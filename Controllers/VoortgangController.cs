@@ -26,10 +26,19 @@ namespace BioWiseV2.Controllers
         public async Task<IActionResult> Index()
         {
             WeeklyReportAndGoalViewModel vm = new WeeklyReportAndGoalViewModel();
-            vm.WeeklyReports = await _context.Weekly_report.ToListAsync();
-            vm.Goals = await _context.Goal.Include(g => g.Consumer).ToListAsync();
-            vm.TransportUsages = await _context.TransportUsage.Include(t => t.Consumer).Include(t => t.Weekly_report).ToListAsync();
             vm.Consumers = await _context.Consumer.ToListAsync();
+            foreach (var consumer in vm.Consumers)
+            {
+                if (consumer != null && consumer.Name == User.Identity?.Name)
+                {
+                    vm.CurrentConsumerId = consumer.Id;
+                }
+            }
+            
+            vm.Goals = await _context.Goal.Include(g => g.Consumer).Where(g => g.ConsumerId == vm.CurrentConsumerId).ToListAsync();
+            vm.TransportUsages = await _context.TransportUsage.Where(g => g.ConsumerId == vm.CurrentConsumerId).Include(t => t.Consumer).Include(t => t.Weekly_report).ToListAsync();
+            vm.WeeklyReports = await _context.Weekly_report.ToListAsync();
+
             return View(vm);
         }
 
