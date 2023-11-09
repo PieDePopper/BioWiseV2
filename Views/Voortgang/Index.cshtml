@@ -145,23 +145,61 @@
 
 
 
+
+
+
+
 <h1>Weeklyreport test</h1>
+<form asp-controller="Voortgang" asp-action="Index" method="get">
+    <p>
+        Title: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 
 <table class="table">
     <tbody>
         @foreach (var item in Model.TransportUsages)
         {
-            if (item.Weekly_reportId == 1)
+            foreach (var item2 in Model.WeeklyReports)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Distance)
-                    </td>                    
-                </tr>
+                if (item.Weekly_reportId == item2.Id)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                    </tr>
+                }
             }
+                
         }
     </tbody>
 </table>
+
+<script>
+    function updateTable() {
+        var weeknumberInput = document.getElementById('weeknumberInput');
+        var weeknumber = parseInt(weeknumberInput.value);
+
+        var table = document.getElementsByTagName('table')[0];
+        var rows = table.getElementsByTagName('tr');
+
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var cells = row.getElementsByTagName('td');
+            var id = parseInt(cells[0].textContent);
+
+            if (id == weeknumber) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+</script>
+
+
 
 <p>Actueel weeknummer: <span id="weekNumber"></span></p>
     <script>

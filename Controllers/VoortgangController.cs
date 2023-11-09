@@ -23,7 +23,7 @@ namespace BioWiseV2.Controllers
             _context = context;
 
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString = null)
         {
             WeeklyReportAndGoalViewModel vm = new WeeklyReportAndGoalViewModel();
             vm.Consumers = await _context.Consumer.ToListAsync();
@@ -37,7 +37,24 @@ namespace BioWiseV2.Controllers
             
             vm.Goals = await _context.Goal.Include(g => g.Consumer).Where(g => g.ConsumerId == vm.CurrentConsumerId).ToListAsync();
             vm.TransportUsages = await _context.TransportUsage.Where(g => g.ConsumerId == vm.CurrentConsumerId).Include(t => t.Consumer).Include(t => t.Weekly_report).ToListAsync();
-            vm.WeeklyReports = await _context.Weekly_report.ToListAsync();
+
+            // Weekly_report filter
+            
+            var weekly_report = await _context.Weekly_report.ToListAsync();
+            vm.WeeklyReports = weekly_report;
+
+            if (searchString != null)
+            {
+                foreach (var item in vm.WeeklyReports)
+                {
+                    if (item.Weeknr.ToString() == searchString)
+                    {
+                        weekly_report = new List<Weekly_report> {item};
+                    }
+                }
+                
+            }
+            vm.WeeklyReports = weekly_report;
             return View(vm);
         }
 
