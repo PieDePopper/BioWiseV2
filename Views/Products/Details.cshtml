@@ -17,6 +17,8 @@
 
     <div class="card text-black bg-white mb-3 text-center d-flex justify-content-center align-items-center" style="width: 40rem; height: 40rem; position: relative; border: none; float: left;">
         <img src="@Html.DisplayFor(model => model.Image_link)" style="max-width: 75%; max-height: 75%;">
+        <button type="button" class="btn btn-success" onclick="location.href = '@Html.DisplayFor(model => model.Market_link)'" style="float:left"><h1 style="font-size: 13px;"> Naar product</h1></button>
+        
     </div>
 
     <div class="card text-black bg-white mb-3" style="width: 38rem; height: 40rem; float: left; margin-left: 15px; border: none">
@@ -46,15 +48,9 @@
         <br />
         <br />
         <img src="@Html.DisplayFor(model => model.QualityMark_link)" height="100" width="100" />
+        
     </div>
 </div>
-
-
-
-
-
-
-
 
 @*<h1>@Html.DisplayFor(model => model.Name)</h1>
 
