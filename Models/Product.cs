@@ -11,6 +11,7 @@
         public string? Category { get; set; }
         public string? Image_link { get; set; }
         public string? QualityMark_link { get; set; }
+        public string? Market_link { get; set; }
 
         // one to many (Suggestion)
         public int? Suggestion_Id { get; set; }
