@@ -269,15 +269,16 @@ dl {
 
 
 
-<h1>Wekelijks rapport:</h1>
+<h1>Wekelijks rapport <img src="https://cdn.discordapp.com/attachments/1151428021341925472/1172150220210061362/image.png?ex=655f44f5&is=654ccff5&hm=f9517a5ebe601f26d6176799c76eece5c0452dbc91ce87d7c0a8a3f746cba169&" width="50" height="50" /></h1>
 <form asp-controller="Voortgang" asp-action="Index" method="get">
     <p>
         Week: <input type="text" name="SearchString" />
         <input type="submit" value="Zoek week" />
     </p>
 </form>
-<button type="button" class="btn btn-success" onclick="window.location.href='../TransportUsages/create'">Maak nieuw doel <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1171510673054908528/image.png?ex=655cf156&is=654a7c56&hm=1f5588f69cfbcd5690a361550ee1f6b21272db86cec6de812a62ac54c1a1fda0&" width="30" height="30" /></button>
-<a asp-controller="Consumers" asp-action="Create">Create New</a>
+<button type="button" class="btn btn-success" onclick="window.location.href='../TransportUsages/create'">Toevoegen <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1171510673054908528/image.png?ex=655cf156&is=654a7c56&hm=1f5588f69cfbcd5690a361550ee1f6b21272db86cec6de812a62ac54c1a1fda0&" width="30" height="30" /></button>
+<br />
+<br />
 <table class="table">
     <tbody>
         @foreach (var item in Model.TransportUsages)
@@ -288,12 +289,41 @@ dl {
                 {
 
                     <details>
+                        
                         <summary>
                             <div>
+                                
                                 <h3>
+                                    @if (item.Transport_type == "Trein")
+                                    {
+                                        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1172160674504396921/image.png?ex=655f4eb2&is=654cd9b2&hm=3254b05bd31ce124e39dfa0e11ea17fbdcbcafcacc1bcc6a9d5632b01b720349&" width="40" height="40" />
+                                    }
+                                    @if (item.Transport_type == "Auto")
+                                    {
+                                        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1172161475301879890/image.png?ex=655f4f71&is=654cda71&hm=34913c4166002ad3b2175336efe2da3b04ac280eb5fb22d2e6c5b33405d7001d&" width="40" height="40" />
+                                    }
+                                    @if (item.Transport_type == "Fiets")
+                                    {
+                                        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1172162241064353832/image.png?ex=655f5027&is=654cdb27&hm=a9f5f4d788cef3005ae52e104e8c0dc706b19ef18a0490b8e53219a3d83240c1&" width="40" height="40" />
+                                    }
+                                    @if (item.Transport_type == "Boot")
+                                    {
+                                        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1172165387010449478/image.png?ex=655f5316&is=654cde16&hm=da97ef933358a19057caaf4e97a4de8633581837993b4bce4bebd021da2e7253&" width="40" height="40" />
+                                    }
+                                    @if (item.Transport_type == "Vliegtuig")
+                                    {
+                                        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1172165562156187750/image.png?ex=655f533f&is=654cde3f&hm=498ee1a99d1d3f8a4b03986ea0d0db872c96149f42ba7099b4c1a628fa40943c&" width="40" height="40" />
+                                    }
+                                    @if (item.Transport_type == "Anders")
+                                    {
+                                        <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1172165809674649600/image.png?ex=655f537a&is=654cde7a&hm=b38f27c22d250e02edd0764c27e486a3cd7a83f108a628852c15ee5ab67e9396&" width="40" height="40" />
+                                    }
                                     <strong>@Html.DisplayFor(modelItem => item.Transport_type) rit</strong>
+                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                    <a asp-controller="TransportUsages" asp-action="Delete" asp-route-id="@item.Id"><img src="https://cdn.discordapp.com/attachments/1164149724371230750/1171157427912200242/image.png?ex=655ba859&is=65493359&hm=7746df8fd8e8d9148d84a928aead9207988f5714a481b9563225107f399cd5fa&" width="50" height="50" /></a>
                                 </h3>
                                 <span>Week @Html.DisplayFor(modelItem => item.Weekly_reportId)</span>
+                                
                             </div>
                         </summary>
                         <div>
@@ -307,6 +337,17 @@ dl {
                                 <div>
                                     <dt>Uitstoot per kilometer</dt>
                                     <dd>@Html.DisplayFor(modelItem => item.Emmission_KM)</dd>
+                                </div>
+                                &nbsp &nbsp &nbsp 
+                                <div>
+
+                                    @{
+                                        int total = item.Distance * item.Emmission_KM;
+                                    }
+                                    <dt> De totale uitstoot is</dt>
+                                    <dd> @Html.Raw(total)</dd>
+
+
                                 </div>
                             </dl>
                         </div>
