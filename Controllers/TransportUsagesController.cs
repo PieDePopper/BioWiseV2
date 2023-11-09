@@ -59,7 +59,7 @@ namespace BioWiseV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Distance,Emmission_KM,Weekly_reportId")] TransportUsage transportUsage)
+        public async Task<IActionResult> Create([Bind("Id,Transport_type,Distance,Emmission_KM,Weekly_reportId")] TransportUsage transportUsage)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace BioWiseV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Distance,Emmission_KM,ConsumerId,Weekly_reportId")] TransportUsage transportUsage)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Transport_type,Distance,Emmission_KM,ConsumerId,Weekly_reportId")] TransportUsage transportUsage)
         {
             if (id != transportUsage.Id)
             {

@@ -3,8 +3,10 @@
     public class TransportUsage
     {
         public int Id { get; set; }
+        public string Transport_type { get; set; }
         public int Distance { get; set; }
         public int Emmission_KM { get; set; }
+
 
         // many to one (Consumer)
         public virtual Consumer? Consumer { get; set; }

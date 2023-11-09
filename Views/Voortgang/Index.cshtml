@@ -4,6 +4,127 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+
+section {
+	width: 90%;
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	& + section {
+		margin-top: 2.5em;
+	}
+}
+
+h1 {
+	font-weight: 700;
+	line-height: 1.125;
+	font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+h2 {
+	margin-top: .25em;
+	color: #999;
+	font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+	& + * {
+		margin-top: 1.5em;
+	}
+}
+
+
+
+summary {
+	background-color: #fff;
+	position: relative;
+	cursor: pointer;
+	padding: 0.5em .5em;
+	list-style: none; // Remove arrow
+	&::-webkit-details-marker {
+		display: none; // Remove arrow
+	}
+	
+	&:hover {
+		background-color: #f2f5f9;
+	}
+
+	
+	div {
+		display: flex;
+		align-items: center;
+	}
+	
+	h3 {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	small {
+		color: #999;
+		font-size: .875em;
+	}
+	
+	strong {
+		font-weight: 700;
+	}
+	
+	span:first-child {
+		width: 4rem;
+		height: 4rem;
+		border-radius: 10px;
+		background-color: #f3e1e1; 
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		margin-right: 1.25em;
+		svg {
+			width: 2.25rem;
+			height: 2.25rem;
+		}
+	}
+	
+	span:last-child {
+		font-weight: 700;
+		margin-left: auto;
+	}
+	
+	&:focus {
+		outline: none;
+	}
+	
+	.plus {
+		color: #289672;
+	}
+}
+
+details {
+	border-bottom: 1px solid #b5bfd9;
+	&[open] {
+		box-shadow: -3px 0 0 #b5bfd9;
+	}
+	
+	&:first-of-type {
+		border-top: 1px solid #b5bfd9;
+	}
+	& > div {
+		padding: 2em 2em 0;
+		font-size: .875em;
+	}
+}
+
+dl {
+	display: flex;
+	flex-wrap: wrap;
+	dt {
+		font-weight: 700;
+	}
+	div {
+		margin-right: 4em;
+		margin-bottom: 2em;
+	}
+}
+</style>
 
 <h2>Welkom @User.Identity?.Name op deze pagina!</h2>
 <p>Op deze pagina kun je jouw persoonlijke doelen creëren en bijhouden, evenals je vervoersgebruik bijhouden.</p>
@@ -62,7 +183,7 @@
 
 
 
-<h1>weekly report Index</h1>
+@*<h1>weekly report Index</h1>
 
 <!-- Wekelijkse Rapporten -->
 <p>
@@ -144,22 +265,19 @@
             }
         }
     </tbody>
-</table>
+</table>*@
 
 
 
-
-
-
-
-<h1>Weeklyreport test</h1>
+<h1>Wekelijks rapport:</h1>
 <form asp-controller="Voortgang" asp-action="Index" method="get">
     <p>
-        Title: <input type="text" name="SearchString" />
-        <input type="submit" value="Filter" />
+        Week: <input type="text" name="SearchString" />
+        <input type="submit" value="Zoek week" />
     </p>
 </form>
-
+<button type="button" class="btn btn-success" onclick="window.location.href='../TransportUsages/create'">Maak nieuw doel <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1171510673054908528/image.png?ex=655cf156&is=654a7c56&hm=1f5588f69cfbcd5690a361550ee1f6b21272db86cec6de812a62ac54c1a1fda0&" width="30" height="30" /></button>
+<a asp-controller="Consumers" asp-action="Create">Create New</a>
 <table class="table">
     <tbody>
         @foreach (var item in Model.TransportUsages)
@@ -168,17 +286,40 @@
             {
                 if (item.Weekly_reportId == item2.Id)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                    </tr>
+
+                    <details>
+                        <summary>
+                            <div>
+                                <h3>
+                                    <strong>@Html.DisplayFor(modelItem => item.Transport_type) rit</strong>
+                                </h3>
+                                <span>Week @Html.DisplayFor(modelItem => item.Weekly_reportId)</span>
+                            </div>
+                        </summary>
+                        <div>
+                            <dl>
+                                <div>
+                                    
+                                    <dt>Afstand</dt>
+                                    <dd>@Html.DisplayFor(modelItem => item.Distance)</dd>
+                                </div>
+                                &nbsp &nbsp &nbsp
+                                <div>
+                                    <dt>Uitstoot per kilometer</dt>
+                                    <dd>@Html.DisplayFor(modelItem => item.Emmission_KM)</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </details>
                 }
             }
                 
         }
     </tbody>
 </table>
+
+
+
 
 <script>
     function updateTable() {
@@ -201,27 +342,3 @@
         }
     }
 </script>
-
-
-
-<p>Actueel weeknummer: <span id="weekNumber"></span></p>
-
-  <script>
-            // JavaScript-code om het actuele weeknummer te berekenen
-            var currentDate = new Date();
-    var weekNumber = getWeekNumber(currentDate);
-
-    function getWeekNumber(date) {
-        // Kopieer de datum om de originele datum niet te veranderen
-        date = new Date(date);
-        date.setHours(0, 0, 0, 0);
-        // Stel de dag in op donderdag (de ISO-norm voor weeknummers)
-        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
-        var startOfYear = new Date(date.getFullYear(), 0, 1);
-        var weekNumber = Math.ceil(((date - startOfYear) / 86400000 + 1) / 7);
-        return weekNumber;
-    }
-
-    // Voeg het actuele weeknummer in de HTML in
-    document.getElementById("weekNumber").textContent = weekNumber;
-    </script>
