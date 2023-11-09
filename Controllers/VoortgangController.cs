@@ -34,12 +34,8 @@ namespace BioWiseV2.Controllers
                     vm.CurrentConsumerId = consumer.Id;
                 }
             }
-            
             vm.Goals = await _context.Goal.Include(g => g.Consumer).Where(g => g.ConsumerId == vm.CurrentConsumerId).ToListAsync();
             vm.TransportUsages = await _context.TransportUsage.Where(g => g.ConsumerId == vm.CurrentConsumerId).Include(t => t.Consumer).Include(t => t.Weekly_report).ToListAsync();
-
-            // Weekly_report filter
-            
             var weekly_report = await _context.Weekly_report.ToListAsync();
             vm.WeeklyReports = weekly_report;
 
@@ -52,9 +48,8 @@ namespace BioWiseV2.Controllers
                         weekly_report = new List<Weekly_report> {item};
                     }
                 }
-                
+                vm.WeeklyReports = weekly_report;
             }
-            vm.WeeklyReports = weekly_report;
             return View(vm);
         }
 
