@@ -4,18 +4,17 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Vervoers gebruik toevoegen</h1>
 
-<h4>TransportUsage</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Transport_type" class="control-label">Vervoersmiddel</label>
+                <h4>
+                <label asp-for="Transport_type" class="control-label">Vervoersmiddel:</label>
                 <select class="form-control" id="Transport_type" name="Transport_type">
-                    <option>Selecteer vervoersmiddel</option>
                     <option>Trein</option>
                     <option>Auto</option>
                     <option>Fiets</option>
@@ -23,6 +22,7 @@
                     <option>Vliegtuig</option>
                     <option>Anders....</option>
                 </select>
+                </h4>
                 <span asp-validation-for="Transport_type" class="text-danger"></span>
             </div>
 @*            <div class="form-group">
@@ -31,38 +31,31 @@
                 <span asp-validation-for="Transport_type" class="text-danger"></span>
             </div>*@
             <div class="form-group">
-                <label asp-for="Distance" class="control-label"></label>
-                <input asp-for="Distance" class="form-control" />
+                @*<label asp-for="Distance" style="display:none" class="control-label"></label>*@
+                <h4>Afstand:</h4> <input asp-for="Distance" class="form-control" />
                 <span asp-validation-for="Distance" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Emmission_KM" class="control-label"></label>
+                <h4>Uitstoot per kilometer:</h4> @*<label asp-for="Emmission_KM" style="display:none" class="control-label"></label>*@
                 <input asp-for="Emmission_KM" class="form-control" />
                 <span asp-validation-for="Emmission_KM" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ConsumerId" class="control-label"></label>
-                <select asp-for="ConsumerId" class ="form-control" asp-items="ViewBag.ConsumerId"></select>
+                <label asp-for="ConsumerId" style="display:none" class="control-label"></label>
+                <select asp-for="ConsumerId" style="display:none" class="form-control" asp-items="ViewBag.ConsumerId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Weekly_reportId" class="control-label"></label>
+                <h4>
+                    Week nummer:</h4>
+                @*<label asp-for="Weekly_reportId" class="control-label"></label>*@
                 <select asp-for="Weekly_reportId" class ="form-control" asp-items="ViewBag.Weekly_reportId"></select>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Toevoegen" class="btn btn-success" style="width: 10rem" /> &nbsp; <input onclick="window.location.href='../voortgang'" value="Terug" class="btn btn-danger" style="width: 10rem" />
             </div>
         </form>
     </div>
-</div>
-
-<select class="form-control" id="StudentGender" name="StudentGender">
-    <option>Select Gender</option>
-    <option>Male</option>
-    <option>Female</option>
-</select>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -8,11 +8,11 @@
 
 <h3>Weet u zeker dat u het doel wilt verwijderen?</h3>
 <div>
-    <h4>Goal</h4>
+
     <hr />
     <h4>
         <p>Doel: @Html.DisplayFor(modelItem => Model.Personalgoal)</p>
-        <p>Uitstoot: @Html.DisplayFor(modelItem => Model.Impact) gram CO2 per kilometer</p>
+        <p>Uitstoot: @Html.DisplayFor(modelItem => Model.Impact) gram CO2eq</p>
     </h4>
     @*<dl class="row">
         <dt class = "col-sm-2">
@@ -44,7 +44,7 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Verwijder" class="btn btn-success" /> 
-        <button type="button" class="btn btn-danger" onclick="window.location.href='https://localhost:7138/Voortgang'">Anuleer</button>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='../index'">Anuleer</button>
 
         
     </form>

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<BioWiseV2.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CO2Emmision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterFootprint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EcologicalFootprint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image_link)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QualityMark_link)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Market_link)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Suggestion_Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CO2Emmision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaterFootprint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EcologicalFootprint)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image_link)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QualityMark_link)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Market_link)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Suggestion_Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -151,19 +151,21 @@ dl {
                         @Html.DisplayFor(modelItem => item.Personalgoal)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Impact) gram CO2 per kilometer
+                        @Html.DisplayFor(modelItem => item.Impact) gram CO2eq
                     </td>
                     <!-- Voeg andere velden van Goals toe zoals Completed en Impact -->
                     <td>
                         Behaald: @Html.DisplayFor(modelItem => item.Completed) 
                     </td>
                     <td>
+                        <div style="float: right;">
                         @if (!item.Completed)
                         {
                             <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id"><img src="https://cdn.discordapp.com/attachments/1164149724371230750/1171156686388613251/image.png?ex=655ba7a9&is=654932a9&hm=f98be0d0ac022761f4bc72860db64ec30d577caa73c2251534c4905153cccaaf&" width="50" height="50" /></a>
 
                         }
                         <a asp-controller="Goals" asp-action="Delete" asp-route-id="@item.Id"><img src="https://cdn.discordapp.com/attachments/1164149724371230750/1171157427912200242/image.png?ex=655ba859&is=65493359&hm=7746df8fd8e8d9148d84a928aead9207988f5714a481b9563225107f399cd5fa&" width="50" height="50" /></a>
+                         </div>
                     </td>
 @*                    <td>
                         <a asp-controller="Goals" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -319,8 +321,12 @@ dl {
                                         <img src="https://cdn.discordapp.com/attachments/1015233182209159201/1172165809674649600/image.png?ex=655f537a&is=654cde7a&hm=b38f27c22d250e02edd0764c27e486a3cd7a83f108a628852c15ee5ab67e9396&" width="40" height="40" />
                                     }
                                     <strong>@Html.DisplayFor(modelItem => item.Transport_type) rit</strong>
-                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                                    <a asp-controller="TransportUsages" asp-action="Delete" asp-route-id="@item.Id"><img src="https://cdn.discordapp.com/attachments/1164149724371230750/1171157427912200242/image.png?ex=655ba859&is=65493359&hm=7746df8fd8e8d9148d84a928aead9207988f5714a481b9563225107f399cd5fa&" width="50" height="50" /></a>
+
+                                    <div style="float: right;">
+                                        <a asp-controller="TransportUsages" asp-action="Delete" asp-route-id="@item.Id">
+                                            <img src="https://cdn.discordapp.com/attachments/1164149724371230750/1171157427912200242/image.png?ex=655ba859&is=65493359&hm=7746df8fd8e8d9148d84a928aead9207988f5714a481b9563225107f399cd5fa&" width="50" height="50" />
+                                        </a>
+                                    </div>
                                 </h3>
                                 <span>Week @Html.DisplayFor(modelItem => item.Weekly_reportId)</span>
                                 
@@ -331,12 +337,12 @@ dl {
                                 <div>
                                     
                                     <dt>Afstand</dt>
-                                    <dd>@Html.DisplayFor(modelItem => item.Distance)</dd>
+                                    <dd>@Html.DisplayFor(modelItem => item.Distance) KM</dd>
                                 </div>
                                 &nbsp &nbsp &nbsp
                                 <div>
                                     <dt>Uitstoot per kilometer</dt>
-                                    <dd>@Html.DisplayFor(modelItem => item.Emmission_KM)</dd>
+                                    <dd>@Html.DisplayFor(modelItem => item.Emmission_KM) CO2 per KM</dd>
                                 </div>
                                 &nbsp &nbsp &nbsp 
                                 <div>
@@ -345,7 +351,7 @@ dl {
                                         int total = item.Distance * item.Emmission_KM;
                                     }
                                     <dt> De totale uitstoot is</dt>
-                                    <dd> @Html.Raw(total)</dd>
+                                    <dd> @Html.Raw(total) CO2</dd>
 
 
                                 </div>

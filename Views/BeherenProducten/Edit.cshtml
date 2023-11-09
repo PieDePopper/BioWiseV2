@@ -1,0 +1,74 @@
+﻿@model BioWiseV2.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CO2Emmision" class="control-label"></label>
+                <input asp-for="CO2Emmision" class="form-control" />
+                <span asp-validation-for="CO2Emmision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WaterFootprint" class="control-label"></label>
+                <input asp-for="WaterFootprint" class="form-control" />
+                <span asp-validation-for="WaterFootprint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EcologicalFootprint" class="control-label"></label>
+                <input asp-for="EcologicalFootprint" class="form-control" />
+                <span asp-validation-for="EcologicalFootprint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image_link" class="control-label"></label>
+                <input asp-for="Image_link" class="form-control" />
+                <span asp-validation-for="Image_link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QualityMark_link" class="control-label"></label>
+                <input asp-for="QualityMark_link" class="form-control" />
+                <span asp-validation-for="QualityMark_link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Market_link" class="control-label"></label>
+                <input asp-for="Market_link" class="form-control" />
+                <span asp-validation-for="Market_link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Suggestion_Id" class="control-label"></label>
+                <input asp-for="Suggestion_Id" class="form-control" />
+                <span asp-validation-for="Suggestion_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

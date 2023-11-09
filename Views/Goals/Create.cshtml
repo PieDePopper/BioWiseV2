@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Personalgoal" style="display:none" class="control-label"></label>
-                Uw doel: <input asp-for="Personalgoal" class="form-control" />
+                <h4>Uw doel:</h4> <input asp-for="Personalgoal" class="form-control" />
                 <span asp-validation-for="Personalgoal" class="text-danger"></span>
             </div>
 @*            <div class="form-group form-check">
@@ -24,7 +24,7 @@
             </div>*@
             <div class="form-group">
                 <label asp-for="Impact" style="display:none" class="control-label"></label>
-                Uitstoot (gram CO2 per kilometer): <input asp-for="Impact" class="form-control" />
+                <h4>Uitstoot (gram CO2eq):</h4> <input asp-for="Impact" class="form-control" />
                 <span asp-validation-for="Impact" class="text-danger"></span>
             </div>
 @*            <div class="form-group">
