@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BioWiseV2.Data;
 using BioWiseV2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BioWiseV2.Controllers
 {
+    [Authorize]
     public class BeherenProductenController : Controller
     {
         private readonly ApplicationDbContext _context;
